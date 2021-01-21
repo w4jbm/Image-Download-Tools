@@ -62,6 +62,19 @@ downloader2.download(srchfor, limit=250,  output_dir='Images',
 # Requires that rdfind has been installed in Linux
 os.system('rdfind -deleteduplicates true Images')
 
+# To make sure files with duplicate names are captures, copies with
+# the original name and a second copy with 'zzzzzImage_###' are
+# saved. The rdfind command above should have removed all duplicates
+# and only kept zzzzzImage files that are NOT duplicates. Now that
+# we've done that, we can rename them.
+
+fileprefix = "zzzzz"
+fnames = os.listdir('Images/'+srchfor)
+
+for fname in fnames:
+    if fname.startswith(fileprefix):
+        os.rename('Images/'+srchfor+'/'+fname, 'Images/'+srchfor+'/'+fname.replace(fileprefix, '', 1))
+
 # Now that we have the images, we rename the destination directory
 # so that it includes the timestamp...
 os.rename(os.path.join('Images', srchfor),

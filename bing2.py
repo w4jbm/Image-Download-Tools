@@ -55,9 +55,17 @@ class Bing:
             self.save_image(link, "{}/{}/{}/".format(os.getcwd(), self.output_dir, self.query) + "{}".format(
                 str(filename)))
 
+# We save two copies, but the calling program uses the linux
+# command rdfind to remove duplicates. This is done so that
+# we capture images that may all share the same name like
+# preview.jpg or GeorgeWashington.jpg even though they are
+# different images.
 
-#           self.save_image(link, "{}/{}/{}/".format(os.getcwd(), self.output_dir, self.query) + "Image_{}.{}".format(
-#               str(self.download_count), file_type))
+# Needed to put "zzzzz' preface to push these to end of
+# rdfind processing.
+
+            self.save_image(link, "{}/{}/{}/".format(os.getcwd(), self.output_dir, self.query) + "zzzzzImage_{}.{}".format(
+                str(self.download_count), file_type))
 
             print("[%] File Downloaded !\n")
         except Exception as e:
